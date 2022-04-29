@@ -1,13 +1,14 @@
 import './App.css';
+import List from './components/List';
+import Title from './components/Title';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Clases-react-1121
-        </p>
-      </header>
+    <div>
+      <Title contenido='Clase 2' estilosPersonalizados={ { color: 'red' } }/>
+      <Title contenido='Bienvenidos' estilosPersonalizados={ { color: 'blue' } }/>
+      <List />
     </div>
   );
 }
