@@ -1,14 +1,24 @@
+import { useState } from 'react';
 import './App.css';
-import List from './components/List';
-import Title from './components/Title';
+import Contador from './components/Contador';
 
 function App() {
 
+  const [estado, setEstado] = useState('Valor Inicial');
+
+  function actualizarEstado() {
+    setEstado('Estado Actualizado');
+  }
+
   return (
     <div>
-      <Title contenido='Clase 2' estilosPersonalizados={ { color: 'red' } }/>
-      <Title contenido='Bienvenidos' estilosPersonalizados={ { color: 'blue' } }/>
-      <List />
+      <h2>Clase 3</h2>
+
+      <h2>{estado}</h2>
+      <button onClick={actualizarEstado}>Actualizar Estado</button>
+
+      <Contador />
+
     </div>
   );
 }
