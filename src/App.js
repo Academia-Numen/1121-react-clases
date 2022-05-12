@@ -1,25 +1,35 @@
 import { useState } from 'react';
 import './App.css';
-import Contador from './components/Contador';
+
+function ListItem({ id, contenido, deleteItem }) {
+
+  function eventHandler() {
+    deleteItem(id)
+  };
+
+  return <li onClick={eventHandler}> {contenido} </li>
+}
 
 function App() {
 
-  const [estado, setEstado] = useState('Valor Inicial');
+  const [items, setItems] = useState([
+    { id: 1, value: 'Regar las plantas' },
+    { id: 2, value: 'Salir a correr' },
+    { id: 3, value: 'Estudiar React' },
+    { id: 4, value: 'Comer sano' },
+  ]);
 
-  function actualizarEstado() {
-    setEstado('Estado Actualizado');
+  function eliminarItem(identificador) {
+    const listaFiltrada = items.filter(item => item.id !== identificador);
+    setItems(listaFiltrada);
   }
 
   return (
-    <div>
-      <h2>Clase 3</h2>
-
-      <h2>{estado}</h2>
-      <button onClick={actualizarEstado}>Actualizar Estado</button>
-
-      <Contador />
-
-    </div>
+    <ul>
+      {items.map((item) => (
+        <ListItem key={item.id} contenido={item.value} id={item.id} deleteItem={eliminarItem} />
+      ))}
+    </ul>
   );
 }
 
