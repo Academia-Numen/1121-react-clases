@@ -1,52 +1,10 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import './App.css';
+import { useAxios } from './hooks/useAxios';
 
 function App() {
 
-  const [matches, setMatches] = useState([]);
-  const [error, setError] = useState({
-    message: '',
-    isError: false,
-  });
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [users, setUsers] = useState([]);
-  const [errorUser, setErrorUser] = useState({
-    message: '',
-    isError: false,
-  });
-  const [isLoadingUser, setIsLoadingUser] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    axios('http://localhost:800/team')
-      .then(res => setMatches(res.data.matches))
-      .catch(err => setError({
-        message: err.message,
-        isError: true,
-      }))
-      .finally(() => {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1500);
-      });
-  }, []);
-
-  useEffect(() => {
-    setIsLoadingUser(true);
-    axios('https://jsonplaceholder.typicode.com/users')
-      .then(res => setUsers(res.data))
-      .catch(err => setErrorUser({
-        message: err.message,
-        isError: true,
-      }))
-      .finally(() => {
-        setTimeout(() => {
-          setIsLoadingUser(false);
-        }, 1500);
-      });
-  }, []);
+  const { data, isLoading, error } = useAxios('http://localhost:8000/team');
+  const { data: users, isLoading: isLoadingUser, error: errorUser } = useAxios('https://jsonplaceholder.typicode.com/users');
 
   return (
     <>
@@ -55,6 +13,8 @@ function App() {
         errorUser.isError ? <h4>{errorUser.message}</h4>
 
           : isLoadingUser ? <h4>Cargando...</h4> :
+
+            users.length !== 0 &&
 
             <ul>
               {users.map(user => (
@@ -68,8 +28,10 @@ function App() {
 
           : isLoading ? <h4>Cargando...</h4> :
 
+            data.length !== 0 &&
+
             <ul>
-              {matches.map(match => (
+              {data.matches.map(match => (
                 <li key={match.match}>{match.rival}</li>
               ))}
             </ul>
