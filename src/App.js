@@ -1,11 +1,20 @@
 import './App.css';
-import Counter from './components/Counter';
+import BookList from './components/BookList';
+import Navbar from './components/Navbar';
+import NewBookForm from './components/NewBookForm';
+import BooksContextProvider from './context/BooksContext';
 
 function App() {
 
   return (
     <div className='App'>
-      <Counter />
+      <BooksContextProvider>
+        
+        <Navbar />
+        <BookList />
+        <NewBookForm />
+
+      </BooksContextProvider>
     </div>
   );
 }
