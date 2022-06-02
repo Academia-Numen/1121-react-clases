@@ -7,9 +7,9 @@ export const ACTIONS = {
 export default function counterReducer(state, action) {
     switch (action.type) {
         case ACTIONS.INCREMENT:
-            return state + 1;
+            return state + parseFloat(action.payload);
         case ACTIONS.DECREMENT:
-            return state - 1;
+            return state - parseFloat(action.payload);
         case ACTIONS.RESET:
             return 0;
         default:
