@@ -1,17 +1,14 @@
 export const ACTIONS = {
-    INCREMENT: 'increment',
-    DECREMENT: 'decrement',
-    RESET: 'reset',
+    ADD_BOOK: 'increment',
+    REMOVE_BOOK: 'decrement',
 }
 
-export default function counterReducer(state, action) {
+export default function bookReducer(state, action) {
     switch (action.type) {
-        case ACTIONS.INCREMENT:
-            return state + parseFloat(action.payload);
-        case ACTIONS.DECREMENT:
-            return state - parseFloat(action.payload);
-        case ACTIONS.RESET:
-            return 0;
+        case ACTIONS.ADD_BOOK:
+            return [...state, action.payload];
+        case ACTIONS.REMOVE_BOOK:
+            return state.filter(book => book.id !== action.payload);
         default:
             return state;
     }

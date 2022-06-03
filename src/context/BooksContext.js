@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useReducer } from "react";
+import bookReducer from "../reducer/bookReducer";
 
 const bookList = [
     { id: 1, title: 'Código Da Vinci', author: 'Dan Brown' },
@@ -8,12 +9,22 @@ const bookList = [
 
 export const BooksContext = createContext();
 
+function inicializacionDiferida() {
+    const localData = localStorage.getItem('books');
+    return localData ? JSON.parse(localData) : bookList;
+}
+
 export default function BooksContextProvider({ children }) {
 
-    const [books, setBooks] = useState(bookList);
+    const [books, dispatch] = useReducer(bookReducer, [], inicializacionDiferida);
+
+    useEffect(() => {
+        const stringifiedBooks = JSON.stringify(books);
+        localStorage.setItem('books', stringifiedBooks);
+    }, [books])
 
     return (
-        <BooksContext.Provider value={{ books, setBooks }}>
+        <BooksContext.Provider value={{ books, dispatch }}>
             { children }
         </BooksContext.Provider>
     )

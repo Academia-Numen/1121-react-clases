@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { BooksContext } from "../context/BooksContext";
+import { ACTIONS } from "../reducer/bookReducer";
 
 export default function BookDetails({ book }) {
 
-    const { books, setBooks } = useContext(BooksContext);
+    const { dispatch } = useContext(BooksContext);
 
     function deleteBook(id) {
-        const listaFiltrada = books.filter(book => book.id !== id)
-        setBooks(listaFiltrada);
+        dispatch({ type: ACTIONS.REMOVE_BOOK, payload: id })
     }
 
     return (
