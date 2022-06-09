@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { BooksContext } from "../context/BooksContext";
-import { ACTIONS } from "../reducer/bookReducer";
+import { BooksContext } from "../contexts/BooksContext";
+import { ACTIONS } from "../reducers/bookReducer";
 
 export default function NewBookForm() {
     const [title, setTitle] = useState('');
